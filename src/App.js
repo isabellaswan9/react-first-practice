@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { Fragment, useState } from 'react';
+
+import UserInfoInput from './components/UserInfoInput/UserInfoInput';
+import UserInfoList from './components/UserInfoList/UserInfoList';
 
 function App() {
+  const [userInfo,setUserInfo] = useState([{
+    name : "Bella",
+    age : "19",
+    id : "g1"
+  },
+  {
+    name : "Yoki",
+    age : "19",
+    id : "g2"
+  }]);
+  const getUserInfoHandler = (newUserInfo) =>{
+    setUserInfo(prevInfo => {
+      return [...prevInfo,newUserInfo]
+    });
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <UserInfoInput getUserInfo={getUserInfoHandler}/>
+      <UserInfoList userInfo={userInfo}/>
+    </Fragment>
   );
 }
 
